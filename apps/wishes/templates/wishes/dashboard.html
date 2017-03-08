@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Wish Dashboard</title>
+    <style>
+    .box4{
+      width: 500px;
+      height: 200px;
+      border: 1px solid black;
+      padding: 5px;
+    }
+    .box5{
+      width: 500px;
+      height: 200px;
+      border: 1px solid black;
+      padding: 5px;
+    }
+    </style>
+  </head>
+  <body>
+    <h1>Hello {{user.name}}!</h1>
+    <a href="logout">Logout</a>
+
+    {% if messages %}
+      <ul>
+      {% for message in messages %}
+        <li>{{message}}</li>
+      {% endfor %}
+      </ul>
+    {% endif %}
+    <h2>Your Wish List</h2>
+    <div class="box4">
+      <table class="table1">
+      <tr>
+        <th>Item:</th>
+        <th>Added By:</th>
+        <th>Date Added:</th>
+        <th>Action:</th>
+      </tr>
+      {% for i in trap %}
+      <tr>
+        <td><a href="{% url 'wishitem' i.id %}">{{i.wishitem}}</a></td>
+        <td>{{i.addby.name}}</td>
+        <td>{{i.created_at}}</td>
+        {% if user == i.user %}
+        <td><a href="{% url 'delete' i.id %}">Delete</a></td>
+        {% else %}
+        <td><a href="{% url 'cancel' i.id %}">Remove</a></td>
+        {% endif %}
+      </tr>
+      {% endfor %}
+    </table>
+    </div>
+    <h2>Other Users' Wish List</h2>
+    <div class="box5">
+      <table class="table2">
+        <tr>
+          <th>Item:</th>
+          <th>Added By:</th>
+          <th>Date Added:</th>
+          <th>Action:</th>
+        </tr>
+        {% for i in trap2 %}
+        <tr>
+          <td><a href="{% url 'wishitem' i.id %}">{{i.wishitem}}</a></td>
+          <td>{{i.addby.name}}</td>
+          <td>{{i.created_at}}</td>
+          <td><a href="{% url 'share' i.id %}">Add</a></td>
+        </tr>
+        {% endfor %}
+      </table>
+
+    </div>
+    <a href="additem">Add Item</a>

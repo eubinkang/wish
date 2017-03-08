@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    {% for i in wish %}
+    <h1>{{i.wishitem}}</h1>
+    {% endfor %}
+    <a href="/dashboard">Home</a>
+    <a href="logout">Logout</a>
+    <h3>Users who added this product/item to their wishlist:</h3>
+
+    {% if wish %}
+      <ul>
+      {% for i in wish %}
+        {% for j in i.share.all %}
+        <li>{{j.name}}</li>
+      {% endfor %}
+      {% endfor %}
+      </ul>
+    {% endif %}
+
+  </body>
+</html>
